@@ -929,6 +929,7 @@ cc_library_static {
         "bionic/android_crash_detail.cpp",
         "bionic/android_set_abort_message.cpp",
         "bionic/android_unsafe_frame_pointer_chase.cpp",
+        "bionic/android_current_thread_stack_limits.cpp",
         "bionic/arpa_inet.cpp",
         "bionic/assert.cpp",
         "bionic/atexit.cpp",

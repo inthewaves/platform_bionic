@@ -1787,6 +1787,7 @@ LIBC_PRIVATE {
     __unordsf2; # arm
     __wait4; # arm x86
     _fwalk; # arm x86
+    android_find_current_thread_stack_limits;
     android_getaddrinfofornetcontext;
     android_gethostbyaddrfornet;
     android_gethostbyaddrfornetcontext;
