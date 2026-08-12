@@ -37,6 +37,8 @@
 #include <stdlib.h>
 #include <sys/auxv.h>
 #include <sys/mman.h>
+#include <sys/syscall.h>
+#include <unistd.h>
 
 #include "async_safe/log.h"
 #include "heap_tagging.h"
@@ -245,6 +247,9 @@ static void __enable_mte_signal_handler(int, siginfo_t* info, void*) {
   if (info->si_code != SI_TIMER) {
     async_safe_format_log(ANDROID_LOG_ERROR, "libc", "Got BIONIC_ENABLE_MTE not from SI_TIMER");
     return;
+  }
+  if (syscall(__NR_timer_delete, info->si_timerid) == -1) {
+    async_safe_format_log(ANDROID_LOG_ERROR, "libc", "failed to delete MTE re-enable timer: %m");
   }
   int tagged_addr_ctrl = prctl(PR_GET_TAGGED_ADDR_CTRL, 0, 0, 0, 0);
   if (tagged_addr_ctrl < 0) {
